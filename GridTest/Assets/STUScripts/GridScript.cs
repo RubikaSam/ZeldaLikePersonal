@@ -41,6 +41,7 @@ public class GridScript : MonoBehaviour
         SquareCellScript cell = cells[i] = Instantiate<SquareCellScript>(cellPrefab);
         cell.transform.SetParent(transform, false);
         cell.transform.localPosition = position;
+        cell.coordinates = CellCoords.FromCoordinates (x, z);
 
         Text label = Instantiate<Text>(cellLabelPrefab);
         label.rectTransform.SetParent(gridCanvas.transform, false);
