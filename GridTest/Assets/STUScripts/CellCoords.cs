@@ -37,6 +37,17 @@ public struct CellCoords
         this.z = z;
     }
 
+    public static CellCoords FromPosition (Vector3 position)
+    {
+        float x = position.x / (SquareMetrics.bisectSegment * 2f);
+        float z = position.z / (SquareMetrics.bisectSegment * 2f);
+
+        int iX = Mathf.RoundToInt(x);
+        int iZ = Mathf.RoundToInt(z);
+
+        return new CellCoords(iX, iZ);
+    }
+
     public static CellCoords FromCoordinates(int x, int z)
     {
         return new CellCoords(x, z);

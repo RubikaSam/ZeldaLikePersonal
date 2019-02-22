@@ -16,8 +16,12 @@ public class GridScript : MonoBehaviour
 
     SquareCellScript[] cells;
 
+    //BoxCollider boxCollider;
+
     void Awake()
     {
+        //boxCollider = gameObject.AddComponent<BoxCollider>();
+
         gridCanvas = GetComponentInChildren<Canvas>();
 
         cells = new SquareCellScript[height * width];
@@ -48,6 +52,33 @@ public class GridScript : MonoBehaviour
         label.rectTransform.anchoredPosition =
             new Vector2(position.x, position.z);
         label.text = x.ToString() + "\n" + z.ToString();
+
+        
+    }
+
+    void Update()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            HandleInput();
+        }
+    }
+
+    void HandleInput()
+    {
+        Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(inputRay, out hit))
+        {
+            TouchCell(hit.point);
+        }
+    }
+
+    void TouchCell(Vector3 position)
+    {
+        position = transform.InverseTransformPoint(position);
+        CellCoords coordinates = CellCoords.FromPosition(position);
+        Debug.Log("daddy touched me at " + coordinates.ToString());
     }
 
 }
