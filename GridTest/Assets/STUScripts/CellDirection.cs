@@ -7,7 +7,10 @@ public enum CellDirection
     N, E, S, W
 }
 
-public static class HexDirectionExtensions
+//Makes neighbor identification bidirectional
+//Defines "direction" (i.e. the number of Elements in the SquareCellScript Array showing neighbors)
+
+public static class CellDirectionExtensions
 {
 
     public static CellDirection Opposite(this CellDirection direction)

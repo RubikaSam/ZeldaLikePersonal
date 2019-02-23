@@ -5,7 +5,7 @@ public struct CellCoords
 {
 
     [SerializeField]
-    private int x, z;
+    private int x, y;
 
     public int X
     {
@@ -15,51 +15,46 @@ public struct CellCoords
         }
     }
 
-    public int Z
-    {
-        get
-        {
-            return z;
-        }
-    }
-
     public int Y
     {
         get
         {
-            return -X - Z;
+            return y;
         }
     }
 
-    public CellCoords(int x, int z)
+    public CellCoords(int x, int y)
     {
         this.x = x;
-        this.z = z;
+        this.y = y;
     }
 
+
+    //Called by GridScript to convert Raycast touch position to cell coordinates
+    //Defines which x y z coordinates belong to a cell position by defining the area of the cell
     public static CellCoords FromPosition (Vector3 position)
     {
         float x = position.x / (SquareMetrics.bisectSegment * 2f);
-        float z = position.z / (SquareMetrics.bisectSegment * 2f);
+        float y = position.y / (SquareMetrics.bisectSegment * 2f);
 
         int iX = Mathf.RoundToInt(x);
-        int iZ = Mathf.RoundToInt(z);
+        int iY = Mathf.RoundToInt(y);
 
-        return new CellCoords(iX, iZ);
+        return new CellCoords(iX, iY);
     }
 
-    public static CellCoords FromCoordinates(int x, int z)
+    public static CellCoords FromCoordinates(int x, int y)
     {
-        return new CellCoords(x, z);
+        return new CellCoords(x, y);
     }
 
     public override string ToString()
     {
-        return "(" + X.ToString() + ", " + Z.ToString() + ")";
+        return "(" + X.ToString() + ", " + Y.ToString() + ")";
     }
 
     public string ToStringOnSeparateLines()
     {
-        return X.ToString() + "\n" + Z.ToString();
+        return X.ToString() + "\n" + Y.ToString();
     }
 }

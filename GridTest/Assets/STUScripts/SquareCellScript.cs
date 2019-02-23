@@ -20,4 +20,14 @@ public class SquareCellScript : MonoBehaviour
         neighbors[(int)direction] = cell;
         cell.neighbors[(int)direction.Opposite()] = this;
     }
+
+    public void HitByRay (SquareCellScript cell)
+    {
+        Debug.Log("Hit by ray");
+        SquareCellScript neighborN = cell.GetNeighbor(CellDirection.N);
+        Debug.Log("hi" + neighborN.transform.position);
+        SquareCellScript neighborE = cell.GetNeighbor(CellDirection.E);
+        SquareCellScript neighborS = cell.GetNeighbor(CellDirection.S);
+        SquareCellScript neighborW = cell.GetNeighbor(CellDirection.W);
+    }
 }

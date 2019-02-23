@@ -12,63 +12,66 @@ public class GridScript : MonoBehaviour
 
     public Text cellLabelPrefab;
 
+    public bool CellsCreated = false;
+
     Canvas gridCanvas;
 
     SquareCellScript[] cells;
 
-    //BoxCollider boxCollider;
+    public PlayerController controller;
 
     void Awake()
     {
-        //boxCollider = gameObject.AddComponent<BoxCollider>();
-
         gridCanvas = GetComponentInChildren<Canvas>();
 
         cells = new SquareCellScript[height * width];
 
-        for (int z = 0, i = 0; z < height; z++)
+        for (int y = 0, i = 0; y < height; y++)
         {
             for (int x = 0; x < width; x++)
             {
-                CreateCell(x, z, i++);
+                CreateCell(x, y, i++);
             }
         }
     }
 
-    void CreateCell(int x, int z, int i)
+    public void Start()
+    {
+        controller.NeighborRecognition(cells);
+    }
+
+    public void CreateCell(int x, int y, int i)
     {
         Vector3 position;
-        position.x = x * 10f;
-        position.y = 0f;
-        position.z = z * 10f;
+        position.x = x;
+        position.z = 0f;
+        position.y = y;
 
         SquareCellScript cell = cells[i] = Instantiate<SquareCellScript>(cellPrefab);
         cell.transform.SetParent(transform, false);
         cell.transform.localPosition = position;
-        cell.coordinates = CellCoords.FromCoordinates (x, z);
+        cell.coordinates = CellCoords.FromCoordinates (x, y);
 
         if (x > 0)
         {
             cell.SetNeighbor(CellDirection.W, cells[i - 1]);
         }
 
-        if (z > 0)
+        if (y > 0)
         {
-            //if ((z & 1) == 0)
-            
-                cell.SetNeighbor(CellDirection.S, cells[i - width]);
-            
+            cell.SetNeighbor(CellDirection.S, cells[i - width]);
         }
 
             Text label = Instantiate<Text>(cellLabelPrefab);
         label.rectTransform.SetParent(gridCanvas.transform, false);
         label.rectTransform.anchoredPosition =
-            new Vector2(position.x, position.z);
-        label.text = x.ToString() + "\n" + z.ToString();
+            new Vector2(position.x, position.y);
+        label.text = x.ToString() + "\n" + y.ToString();
 
-        
+        CellsCreated = true;
     }
 
+    #region GetPositionThroughRaycast
     void Update()
     {
         if (Input.GetMouseButton(0))
@@ -79,19 +82,23 @@ public class GridScript : MonoBehaviour
 
     void HandleInput()
     {
+        int layerMaskCells = LayerMask.GetMask("Cells");
+
         Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(inputRay, out hit))
+        if (Physics.Raycast(inputRay, out hit, layerMaskCells))
         {
             TouchCell(hit.point);
         }
     }
 
+    //Converts touch position to cell coordinates via the CellCoords script
     void TouchCell(Vector3 position)
     {
         position = transform.InverseTransformPoint(position);
         CellCoords coordinates = CellCoords.FromPosition(position);
-        Debug.Log("daddy touched me at " + coordinates.ToString());
+        Debug.Log("contact at " + coordinates.ToString());
     }
+    #endregion
 
 }
