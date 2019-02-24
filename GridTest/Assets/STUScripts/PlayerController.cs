@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public GameObject playerObject;
+    /*public GameObject playerObject;
 
     public GameObject CellPrefab;
 
@@ -18,10 +18,15 @@ public class PlayerController : MonoBehaviour
 
     public void NeighborRecognition(SquareCellScript cell)
     {
-        SquareCellScript neighborN = cell.GetNeighbor(CellDirection.N);
-        SquareCellScript neighborE = cell.GetNeighbor(CellDirection.E);
-        SquareCellScript neighborS = cell.GetNeighbor(CellDirection.S);
-        SquareCellScript neighborW = cell.GetNeighbor(CellDirection.W);
+        SquareCellScript neighborN;
+        SquareCellScript neighborE;
+        SquareCellScript neighborS;
+        SquareCellScript neighborW;
+
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            playerObject.transform.position = neighborN.Vector3;
+        }
     }
 
 
@@ -42,10 +47,7 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("Contact");
         }
 
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            playerObject.transform.position = SquareCellScript.
-        }
+      
     }
 
     void TouchCell(Vector3 position)
@@ -53,7 +55,7 @@ public class PlayerController : MonoBehaviour
         //position = transform.InverseTransformPoint(position);
         CellCoords coordinates = CellCoords.FromPosition(position);
         Debug.Log("transform contact at" + coordinates.ToString());
-    }
+    }*/
 
 
 }

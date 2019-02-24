@@ -8,21 +8,23 @@ public class GridScript : MonoBehaviour
     public int width = 6;
     public int height = 6;
 
-    public SquareCellScript cellPrefab;
+    public Color defaultColor = Color.white;
+    public Color touchedColor = Color.blue;
 
+    public SquareCellScript cellPrefab;
     public Text cellLabelPrefab;
 
-    public bool CellsCreated = false;
+    SquareCellScript[] cells;
 
     Canvas gridCanvas;
-
-    SquareCellScript[] cells;
+    CellMesh cellMesh;
 
     public PlayerController controller;
 
     void Awake()
     {
         gridCanvas = GetComponentInChildren<Canvas>();
+        cellMesh = GetComponentInChildren<CellMesh>();
 
         cells = new SquareCellScript[height * width];
 
@@ -37,7 +39,7 @@ public class GridScript : MonoBehaviour
 
     public void Start()
     {
-        controller.NeighborRecognition(cells);
+        cellMesh.Triangulate(cells);
     }
 
     public void CreateCell(int x, int y, int i)
@@ -51,6 +53,7 @@ public class GridScript : MonoBehaviour
         cell.transform.SetParent(transform, false);
         cell.transform.localPosition = position;
         cell.coordinates = CellCoords.FromCoordinates (x, y);
+        cell.color = defaultColor;
 
         if (x > 0)
         {
@@ -68,7 +71,7 @@ public class GridScript : MonoBehaviour
             new Vector2(position.x, position.y);
         label.text = x.ToString() + "\n" + y.ToString();
 
-        CellsCreated = true;
+        
     }
 
     #region GetPositionThroughRaycast
@@ -98,6 +101,9 @@ public class GridScript : MonoBehaviour
         position = transform.InverseTransformPoint(position);
         CellCoords coordinates = CellCoords.FromPosition(position);
         Debug.Log("contact at " + coordinates.ToString());
+        int index = coordinates.X + coordinates.Y * width;
+        SquareCellScript cell = cells[index];
+        cell.color = touchedColor;
     }
     #endregion
 

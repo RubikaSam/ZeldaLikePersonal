@@ -7,6 +7,8 @@ public class SquareCellScript : MonoBehaviour
 {
     public CellCoords coordinates;
 
+    public Color color;
+
     [SerializeField]
     SquareCellScript[] neighbors;
 
@@ -21,11 +23,10 @@ public class SquareCellScript : MonoBehaviour
         cell.neighbors[(int)direction.Opposite()] = this;
     }
 
-    public void HitByRay (SquareCellScript cell)
+    public void Neighbors (SquareCellScript cell)
     {
         Debug.Log("Hit by ray");
         SquareCellScript neighborN = cell.GetNeighbor(CellDirection.N);
-        Debug.Log("hi" + neighborN.transform.position);
         SquareCellScript neighborE = cell.GetNeighbor(CellDirection.E);
         SquareCellScript neighborS = cell.GetNeighbor(CellDirection.S);
         SquareCellScript neighborW = cell.GetNeighbor(CellDirection.W);
