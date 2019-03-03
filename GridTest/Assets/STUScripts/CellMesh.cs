@@ -34,7 +34,7 @@ public class CellMesh : MonoBehaviour
     void Triangulate(SquareCellScript cell)
     {
         Vector3 center = cell.transform.localPosition;
-        //for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++)
         {
             AddTriangle(
                 center,
