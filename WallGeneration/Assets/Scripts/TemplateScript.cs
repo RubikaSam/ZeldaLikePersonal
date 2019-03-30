@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 public class TemplateScript : MonoBehaviour
 {
     [SerializeField]
-    private GameObject finalObject;
+    public GameObject finalObject;
 
     private Vector2 mousePos;
 
@@ -24,10 +24,10 @@ public class TemplateScript : MonoBehaviour
             Vector2 mouseRay = Camera.main.ScreenToWorldPoint(transform.position);
             RaycastHit2D rayHit = Physics2D.Raycast(mousePos, Vector2.zero, Mathf.Infinity, allTilesLayer);
 
-            if (rayHit.collider != null)
+            if (rayHit.collider == null)
             {
-                //Instantiate(finalObject, transform.position, Quaternion.identity);
-                Debug.Log(rayHit.collider.name);
+                Instantiate(finalObject, transform.position, finalObject.transform.rotation);
+                // Debug.Log(rayHit.collider.name);
             }
         }
     }
