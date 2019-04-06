@@ -26,10 +26,6 @@ public class PressurePlate : MonoBehaviour
     public float requiredMass = 1f;
     public Sprite activatedPadSprite;
     public Sprite releasedPadSprite;
-    public GameObject Door;
-    public DoorOpener Script;
-
-    bool WasPreviouslyActivated = false;
 
     public void OnTriggerEnter2D(Collider2D collider)
     {
@@ -37,25 +33,18 @@ public class PressurePlate : MonoBehaviour
         {
             if (collider.attachedRigidbody.mass >= requiredMass)
             {
-                if(!WasPreviouslyActivated)
-                {
-                    WasPreviouslyActivated = true;
                     EventManager.TriggerEvent("PressurePlateActivated");
-                    
-                }
-            }
-
-            else
-            {
-                if (WasPreviouslyActivated == true)
-                {
-                    WasPreviouslyActivated = false;
-                    EventManager.TriggerEvent("PressurePlateReleased");
-                }
             }
 
         }
     }
 
-}
+    public void OnTriggerExit2D(Collider2D collider)
+    {
+            Debug.Log("Pressure Plate released");
+            EventManager.TriggerEvent("PressurePlateReleased");
+    }
 
+
+
+}

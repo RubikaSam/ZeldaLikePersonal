@@ -79,7 +79,7 @@ public class ElephantController : SerializedMonoBehaviour
         Vector3 playerDirection = (target.position - transform.position);
         playerDirection = new Vector3((int)playerDirection.x, (int)playerDirection.y);
 
-        Debug.Log(playerDirection);
+        //Debug.Log(playerDirection);
 
         if(isCharging == false)
         {
