@@ -6,14 +6,14 @@ public class DoorOpener : MonoBehaviour
 {
     void OnEnable()
     {
-        EventManager.StartListening("PressurePlateActivated", OpenDoor);
-        EventManager.StartListening("PressurePlateReleased", CloseDoor);
+        EventManager.StartListening("InteractableActivated", OpenDoor);
+        EventManager.StartListening("InteractableReleased", CloseDoor);
     }
 
     void OnDisable()
     {
-        EventManager.StopListening("PressurePlateActivated", OpenDoor);
-        EventManager.StopListening("PressurePlateReleased", CloseDoor);
+        EventManager.StopListening("InteractableActivated", OpenDoor);
+        EventManager.StopListening("InteractableReleased", CloseDoor);
     }
 
     void OpenDoor()
