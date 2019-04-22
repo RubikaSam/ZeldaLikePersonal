@@ -15,7 +15,6 @@ public class SandTextScript : MonoBehaviour
     }
     void Update()
     {
-        sandAmount = InteractablesScript.sandNumber;
         //text.text = sandAmount.ToString();
         if (sandAmount < 0)
         {
@@ -25,7 +24,7 @@ public class SandTextScript : MonoBehaviour
 
         if (sandAmount > 0)
         {
-            Debug.Log("Gained sand");
+            Debug.Log("Current sand:"+ sandAmount);
         }
     }
 }

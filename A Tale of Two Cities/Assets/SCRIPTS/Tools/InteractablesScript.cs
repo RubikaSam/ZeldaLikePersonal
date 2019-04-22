@@ -28,9 +28,8 @@ public class InteractablesScript : MonoBehaviour
     public Sprite activatedPadSprite;
     public Sprite releasedPadSprite;
     //public BoxCollider2D boxCollider;
-    public static int sandNumber;
 
-    public void OnTriggerEnter2D(Collider2D collider)
+    public void OnTriggerStay2D(Collider2D collider)
     {
 
         if (activationType == ActivationType.Plate)
@@ -44,7 +43,7 @@ public class InteractablesScript : MonoBehaviour
 
     }
 
-    public void OnTriggerStay2D(Collider2D collider)
+    public void OnTriggerEnter2D(Collider2D collider)
     {
         Debug.Log(SandTextScript.sandAmount);
         if (activationType == ActivationType.Button && SandTextScript.sandAmount >= requiredSand)
