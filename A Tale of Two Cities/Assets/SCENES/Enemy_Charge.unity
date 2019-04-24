@@ -897,6 +897,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085ba504f85a881449be85f219b05e20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transitionType: 0
+  stay: 0
   padCode: 0
 --- !u!1 &722519528
 GameObject:
@@ -1016,7 +1018,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 722519528}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21.503, y: 8.51, z: 1.9881909}
+  m_LocalPosition: {x: -21.5, y: 9.5, z: 1.9881909}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1562,6 +1564,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085ba504f85a881449be85f219b05e20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transitionType: 0
+  stay: 0
   padCode: 0
 --- !u!1 &1921802422
 GameObject:
@@ -1755,7 +1759,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!61 &2122196497
 BoxCollider2D:
@@ -1900,6 +1904,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  destinationPosition: {x: 0, y: 0, z: 0}
+  desiredPositionOnGrid: {x: 0, y: 0, z: 0}
   highlightTile: {fileID: 11400000, guid: 5fee537ac051f824b9aa3d05c75464ae, type: 2}
   highlightTilemap: {fileID: 7194812338354119012}
   playerIsSelectingTile: 0

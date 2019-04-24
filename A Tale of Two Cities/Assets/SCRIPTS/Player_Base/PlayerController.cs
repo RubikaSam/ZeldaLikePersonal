@@ -10,12 +10,12 @@ public class PlayerController : SerializedMonoBehaviour
     #region Variable Decarations    
     #region //BASIC MOVEMENT
     private Vector3 originTile;
-    private Vector3 destinationTile;
+    public Vector3 destinationPosition;
     private Vector3 newPosition;
     private Vector3 lastPosition;
 
     private Vector3 currentPositionOnGrid;
-    private Vector3 desiredPositionOnGrid;
+    public Vector3 desiredPositionOnGrid;
 
     private GameObject touchedObject;
 
@@ -26,6 +26,8 @@ public class PlayerController : SerializedMonoBehaviour
     private float moveTime = 0.3f;
 
     public static float playerMovementSpeed;
+
+    TransitionPoint transitionPointScript = new TransitionPoint();
 
     [SerializeField]
     public static bool playerHasMoved = false;
@@ -160,17 +162,22 @@ public class PlayerController : SerializedMonoBehaviour
         StartCoroutine(MoveToCell(desiredPositionOnGrid));
     }
 
-    private IEnumerator MoveToCell(Vector3 destinationPosition)
+    public IEnumerator MoveToCell(Vector3 destinationPosition)
     {
         float sqrRemainingDistanceToDestination = (transform.position - destinationPosition).sqrMagnitude;
         float inverseMoveTime = 1 / moveTime;
 
-        while (sqrRemainingDistanceToDestination > float.Epsilon)
+        while (sqrRemainingDistanceToDestination > float.Epsilon && transitionPointScript.isTeleporting == false)
         {
             transform.position = Vector3.MoveTowards(transform.position, destinationPosition, inverseMoveTime * Time.unscaledDeltaTime);
             sqrRemainingDistanceToDestination = (transform.position - destinationPosition).sqrMagnitude;
 
             yield return null;
+        }
+
+        if (transitionPointScript.isTeleporting == true)
+        {
+            
         }
 
         playerHasMoved = false;
